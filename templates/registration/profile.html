@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="space-y-4">
+  <h1 class="text-center forn-bold text-2xl">Profile</h1>
+
+  {% if user.avatar %}
+
+  <img class="w-32" src="{{user.avatar.url}}" alt="User avatar" />
+
+  {% else %}
+
+  <p>No avatar</p>
+
+  {%endif%}
+
+  <p>Username: {{ user.username }}</p>
+
+  <hr class="border-gray-500">
+
+  <div>
+    <h2 class="text-xl text-center my-4">Actions</h2>
+    <div class="flex flex-row justify-center items-center gap-4">
+        <a class="px-4 py-2 border border-violet-600 rounded-lg" href="{% url 'users:change_password' pk=user.pk %}">Change
+          password</a>
+      </div>
+  </div>
+</div>
+{% endblock main %}

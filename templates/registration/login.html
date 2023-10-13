@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="flex h-full justify-center items-center">
+    <form class="bg-gray-100/50 w-full max-w-xs flex flex-col gap-8 border border-gray-400 p-4 rounded-xl" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if form.errors %}
+            <p class="text-sm text-center text-red-600 font-medium">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p class="text-sm text-center font-medium">Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+
+        <div class="space-y-4">
+            <div class="flex flex-col gap-2">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <p class="text-xs text-center text-red-600 font-medium">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="flex flex-col gap-2">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <p class="text-xs text-center text-red-600 font-medium">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="flex gap-4 justify-center">
+            <button type="submit" class="text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5">Login</button>
+            <a href="{% url 'password_reset' %}"
+                class="block w-fit text-blue-700 border border-blue-700 font-medium rounded-lg text-sm px-5 py-2.5">Lost
+                password?</a>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
