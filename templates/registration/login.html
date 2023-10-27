@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block main %}
+{% block content %}
 
 <div class="flex h-full justify-center items-center">
     <form class="bg-gray-100/50 w-full max-w-xs flex flex-col gap-8 border border-gray-400 p-4 rounded-xl" method="post" action="{% url 'login' %}">
@@ -52,4 +52,4 @@
 </div>
 
 
-{% endblock %}
+{% endblock content %}

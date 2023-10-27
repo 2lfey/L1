@@ -1,12 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 {% if latest_question_list %}
-<ul>
+<h1 class="text-center text-2xl font-bold mb-4">Вопросы?</h1>
+
+<ul class="list-none flex flex-col gap-4">
     {% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a> </li>
+    <li><a class="block bg-gray-200 rounded-lg px-4 py-2.5 hover:bg-gray-300 font-bold text-lg"
+            href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a> </li>
     {% endfor %}
 </ul>
-    {% else %}
-     <p>
-         Нет вопросов!
-     </p>
+
+{% else %}
+
+<div class="h-screen flex items-center justify-center">
+    <h1 class="text-2xl font-bold text-center">Нет вопросов?</h1>
+</div>
 
 {% endif %}
+
+{% endblock %}

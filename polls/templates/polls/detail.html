@@ -1,14 +1,37 @@
-<form action="{% url 'polls:vote' question.id %}" method="post">
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form class="flex flex-col items-center gap-4" action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
     <fieldset>
-        <legend>
-            <h1>{{question.question_text}}</h1>
+        <legend class="w-full">
+            <h1 class="my-4 text-center font-bold text-2xl">{{question.question_text}}</h1>
         </legend>
-        {% if error_message %}<p><strong> {{error_message}}</strong></p>{% endif %}
-        {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
-        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br>
-        {% endfor %}
+        {% if error_message %}
+        <p class="my-2 text-red-500 font-bold text-lg text-center">
+            {{error_message}}
+        </p>
+        {% endif %}
+
+        <ul class="flex flex-wrap min-w-max gap-2">
+            {% for choice in question.choice_set.all %}
+            <li class="flex gap-2 items-center border border-gray-200 rounded pl-4">
+                <input class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300" type="radio" name="choice"
+                    id="choice{{forloop.counter}}" value="{{choice.id}}">
+                <label class="block py-2 h-full w-full"
+                    for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br>
+            </li>
+            {% endfor %}
+        </ul>
     </fieldset>
-<input type="submit" value="Vote">
+    <div class="flex gap-4">
+        <button type="submit"
+            class="w-fit text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">Vote</button>
+
+        <a href="{% url 'polls:results' question.id %}"
+            class="border border-blue-700 hover:bg-blue-800 text-blue-600 hover:text-white font-medium rounded-lg text-sm px-5 py-2.5">Results</a>
+    </div>
 </form>
+
+{% endblock content %}
