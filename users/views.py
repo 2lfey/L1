@@ -16,11 +16,11 @@ class RegisterView(generic.CreateView):
 class ProfileView(mixins.LoginRequiredMixin, generic.edit.UpdateView):
     model = models.User
     template_name = 'registration/profile.html'
-    # context_object_name = 'user'
+    success_url = reverse_lazy('profile')
     fields = (
         'avatar',
         'email',
-        'username'
+        'username',
     )
 
     def get_object(self, queryset=None):

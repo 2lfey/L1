@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 
