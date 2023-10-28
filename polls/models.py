@@ -7,6 +7,9 @@ from users.models import User
 
 
 class Question(models.Model):
+    poster = models.ImageField(upload_to='posters', null=True)
+    description = models.CharField(max_length=2000, null=True)
+    summary = models.CharField(max_length=300, null=True)
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 

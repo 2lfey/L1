@@ -13,10 +13,15 @@ class RegisterView(generic.CreateView):
     success_url = reverse_lazy('login')
 
 
-class ProfileView(mixins.LoginRequiredMixin, generic.DetailView):
+class ProfileView(mixins.LoginRequiredMixin, generic.edit.UpdateView):
     model = models.User
     template_name = 'registration/profile.html'
-    context_object_name = 'user'
+    # context_object_name = 'user'
+    fields = (
+        'avatar',
+        'email',
+        'username'
+    )
 
     def get_object(self, queryset=None):
         return self.request.user
